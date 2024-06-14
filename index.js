@@ -196,10 +196,10 @@ $(document).ready(function () {
 
         move() {
             if (this.pattern == "straight" && (this._xPos != this.destinationX) && (this._yPos != this.destinationY)) {
-                this._xPos = this._xPos + 3;
+                this._xPos = this._xPos + 10;
                 if (this._xPos > this.destinationX) this._xPos = this.destinationX;
                 this._yPos = ((this.destinationY - this.startY) / (this.destinationX - this.startX)) * this._xPos+this.startY;
-            }
+            };
         }
 
         shoot() {}
@@ -260,7 +260,8 @@ $(document).ready(function () {
     function startGame() {
         player = new Player((canvasDimension/2)-10, canvasDimension*(4/5), 20, 20, "#3773b9");
         setInterval(() => {
-            if (enemies.length < 10) enemies.push(new Enemy(Math.floor(Math.random()*canvasDimension)+25, Math.floor(Math.random()*(canvasDimension/4))+50, 50, 50, ["red", "orange", "yellow", "green", "blue", "purple"][Math.floor(Math.random()*6)]));
+            let size = [50, 100, 150][Math.floor(Math.random()*3)];
+            if (enemies.length < 10) enemies.push(new Enemy(Math.floor(Math.random()*canvasDimension)+25, Math.floor(Math.random()*(canvasDimension/4))+50, size, size, ["red", "orange", "yellow", "green", "blue", "purple"][Math.floor(Math.random()*6)]));
         }, 100);
         gamescreen.initialize();
     };
@@ -270,9 +271,9 @@ $(document).ready(function () {
 
         let i = 0;
         while (i < enemies.length) {
-            // enemies[i].move();
+            enemies[i].move();
             enemies[i].update();
-            if (enemies[i].xPos >= canvasDimension+enemies[i].dimension) {
+            if (enemies[i].xPos >= canvasDimension+enemies[i].width) {
                 enemies.splice(i, 1);
                 --i;
             };
